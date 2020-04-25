@@ -9,6 +9,6 @@ $ cd /home/pi
 $ git clone https://github.com/duracell80/pod2m3u.git
 $ cd /home/pi/pod2m3u
 $ python pod2m3u.py http://static.aboveandbeyond.nu/grouptherapy/podcast.xml
-$ sudo cp podcast.m3u /var/lib/mpd/playlists/
+$ sudo cp *.m3u /var/lib/mpd/playlists/
 $ mpc clear; mpc load podcast; mpc play
 ```
