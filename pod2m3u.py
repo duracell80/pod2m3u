@@ -11,7 +11,7 @@ def remove_non_ascii(text):
 
 
 feedurl         = sys.argv[1]
-data            = podcastparser.parse(feedurl, urllib.urlopen(feedurl), 10)
+data            = podcastparser.parse(feedurl, urllib.urlopen(feedurl), 25)
 pod_title       = data["title"]
 pod_timeformat  = "%m/%d/%Y"
 pod_m3u         = "#EXTM3U\n"
