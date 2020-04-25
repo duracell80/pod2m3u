@@ -5,11 +5,6 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 
-def remove_non_ascii(text):
-    return re.sub(r'[^\x00-\x7F]+','_', text)
-
-
-
 feedurl         = sys.argv[1]
 data            = podcastparser.parse(feedurl, urllib.urlopen(feedurl), 25)
 pod_title       = data["title"]
@@ -28,6 +23,7 @@ pod_m3u         = "#EXTM3U\n"
 # enclosures:
 #    url
 #    mime_type,
+#    file_size
 #    file_size
 # description_html
 # title
@@ -50,4 +46,4 @@ with open("podcast_"+sys.argv[2]+".m3u", "w") as f_m3u:
     
     
 #os.system("sudo cp *.m3u /var/lib/mpd/playlists/")
-#os.system("mpc clear; mpc load podcast; mpc play")
+#os.system("mpc clear; mpc load podcast_*; mpc play")
