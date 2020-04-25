@@ -5,8 +5,10 @@ Clone this repo in home folder
 
 ```
 $ pip install podcastparser
+$ cd /home/pi
+$ git clone https://github.com/duracell80/pod2m3u.git
 $ cd /home/pi/pod2m3u
 $ python pod2m3u.py http://static.aboveandbeyond.nu/grouptherapy/podcast.xml
-$ mpc load /home/pi/pod2m3u/podcast.m3u
-$ mpc play
+$ sudo cp podcast.m3u /var/lib/mpd/playlists/
+$ mpc clear; mpc load podcast; mpc play
 ```
