@@ -1,4 +1,4 @@
-import sys, urllib, podcastparser
+import sys, os, urllib, podcastparser
 from datetime import datetime
 
 reload(sys)
@@ -11,7 +11,7 @@ def remove_non_ascii(text):
 
 
 feedurl         = sys.argv[1]
-data            = podcastparser.parse(feedurl, urllib.urlopen(feedurl), 25)
+data            = podcastparser.parse(feedurl, urllib.urlopen(feedurl), 10)
 pod_title       = data["title"]
 pod_timeformat  = "%m/%d/%Y"
 pod_m3u         = "#EXTM3U\n"
@@ -43,6 +43,11 @@ for s in data["episodes"]:
     for e in s["enclosures"]:
         pod_m3u = pod_m3u + e["url"] + "\n\n"
         
-
-with open("podcast.m3u", "w") as f_m3u:
+os.system("sudo touch podcast_"+sys.argv[2]+".m3u")
+os.system("sudo chmod 777 podcast_"+sys.argv[2]+".m3u")
+with open("podcast_"+sys.argv[2]+".m3u", "w") as f_m3u:
     f_m3u.write(pod_m3u)
+    
+    
+#os.system("sudo cp *.m3u /var/lib/mpd/playlists/")
+#os.system("mpc clear; mpc load podcast; mpc play")
