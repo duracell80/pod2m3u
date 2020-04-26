@@ -59,6 +59,10 @@ pod_m3u         = "#EXTM3U\n"
 
 
 for s in data["episodes"]:
+    if int(pod_items) == 1:
+        pod_art = s["episode_art_url"]
+        print("Podcast Episode Art: " + pod_art)
+    
     
     pod_date    = datetime.fromtimestamp(s["published"])
     pod_m3u     = pod_m3u + "#EXTINF:"+ str(s["total_time"])+ "," + pod_title + " - " + pod_date.strftime(pod_timeformat) + " - " + s["title"] + "\n"
