@@ -74,7 +74,3 @@ os.system("sudo touch podcast_"+pod_name+".m3u")
 os.system("sudo chmod 777 podcast_"+pod_name+".m3u")
 with open("podcast_"+pod_name+".m3u", "w") as f_m3u:
     f_m3u.write(pod_m3u)
-    
-    
-#os.system("sudo cp -f *.m3u /var/lib/mpd/playlists/")
-#os.system("mpc clear; mpc load podcast_"+pod_name+"; mpc play")
