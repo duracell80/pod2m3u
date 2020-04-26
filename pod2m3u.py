@@ -72,5 +72,5 @@ with open("podcast_"+pod_name+".m3u", "w") as f_m3u:
     f_m3u.write(pod_m3u)
     
     
-#os.system("sudo mv -f *.m3u /var/lib/mpd/playlists/")
+#os.system("sudo cp -f *.m3u /var/lib/mpd/playlists/")
 #os.system("mpc clear; mpc load podcast_"+pod_name+"; mpc play")
