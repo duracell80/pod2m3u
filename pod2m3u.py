@@ -62,47 +62,34 @@ else:
         print("Podcast Parser Error: Please file a bug report at github.com/gpodder/podcastparser")
         sys.exit()
     
-pod_title       = data["title"]
-pod_timeformat  = "%m/%d/%Y"
-pod_m3u         = "#EXTM3U\n"
-
-sys.exit()
-
-# Let's do this, metaverse from podcastparser.py ...
-# total_time,
-# description
-# payment_url
-# link
-# guid
-# enclosures:
-#    url
-#    mime_type,
-#    file_size
-#    file_size
-# description_html
-# title
-# published
-# episode_art_url
+    
+    pod_title       = data["title"]
+    pod_timeformat  = "%m/%d/%Y"
+    pod_m3u         = "#EXTM3U\n"
 
 
-# CHECK for cover art
-    if "http" in data["cover_url"]:
-        pod_art = data["cover_url"]
+    
+
+
+    # PARSE each episode
+    for s in data["episodes"]:
+        pod_date    = datetime.fromtimestamp(s["published"])
+        pod_m3u     = pod_m3u + "#EXTINF:"+ str(s["total_time"])+ "," + pod_title + " - " + pod_date.strftime(pod_timeformat) + " - " + s["title"] + "\n"
+
+        for e in s["enclosures"]:
+            pod_m3u = pod_m3u + e["url"] + "\n\n"
+
     
     
-    pod_date    = datetime.fromtimestamp(s["published"])
-    pod_m3u     = pod_m3u + "#EXTINF:"+ str(s["total_time"])+ "," + pod_title + " - " + pod_date.strftime(pod_timeformat) + " - " + s["title"] + "\n"
     
-    for e in s["enclosures"]:
-        pod_m3u = pod_m3u + e["url"] + "\n\n"
-        
-os.system("sudo touch podcast_"+pod_name+".m3u")
-os.system("sudo chmod 777 podcast_"+pod_name+".m3u")
-with open("podcast_"+pod_name+".m3u", "w") as f_m3u:
-    f_m3u.write(pod_m3u)
-    
-    
-os.system("sudo touch podcast_"+pod_name+".json")
-os.system("sudo chmod 777 podcast_"+pod_name+".json")    
-with open("podcast_"+pod_name+".json", "w") as f_json:
-    f_json.write(str(json.dumps(data, indent=4)))
+    # SET the files
+    os.system("sudo touch podcast_"+pod_name+".m3u")
+    os.system("sudo chmod 777 podcast_"+pod_name+".m3u")
+    with open("podcast_"+pod_name+".m3u", "w") as f_m3u:
+        f_m3u.write(pod_m3u)
+
+
+    os.system("sudo touch podcast_"+pod_name+".json")
+    os.system("sudo chmod 777 podcast_"+pod_name+".json")    
+    with open("podcast_"+pod_name+".json", "w") as f_json:
+        f_json.write(str(json.dumps(data, indent=4)))
